@@ -247,5 +247,3 @@
   </script>
 </body>
 </html>
-
-
