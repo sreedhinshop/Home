@@ -1,249 +1,258 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Modern Engaging — Demo</title>
-  <meta name="description" content="Stylish, modern one-page site with hero, features, product cards and animated demo area." />
-
-  <!-- Tailwind CDN for quick prototyping -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SvgTrace Clone - TRUE Layered Colors (Grouped by Fill)</title>
+  <script src="https://cdn.jsdelivr.net/npm/imagetracerjs@1.2.6/imagetracer_v1.2.6.js"></script>
   <style>
-    /* Custom theme tweaks */
-    :root{
-      --accent:#7c5cff;
-      --muted:#98a0b3;
-      --glass: rgba(255,255,255,0.06);
-    }
-    body{background: linear-gradient(180deg,#0f1220 0%, #0b0d13 100%); color:#e6e9f2}
-
-    /* Floating hero image */
-    .float-slow{ animation: float 6s ease-in-out infinite; }
-    @keyframes float{ 0%{ transform: translateY(0) } 50%{ transform: translateY(-12px) } 100%{ transform: translateY(0) } }
-
-    /* Fancy card hover */
-    .card-hover{ transition: transform .35s ease, box-shadow .35s ease; }
-    .card-hover:hover{ transform: translateY(-12px) scale(1.02); box-shadow: 0 30px 80px rgba(13,10,30,.6); }
-
-    /* Subtle glass background */
-    .glass { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015)); border: 1px solid rgba(255,255,255,0.04); backdrop-filter: blur(6px); }
-
-    /* Animated cat placeholder (replace with your image) */
-    .cat-wrap{ width:320px; height:220px; display:grid; place-items:center; }
-    .cat-img{ width:260px; transition:transform .3s ease; }
-    .tail { transform-origin: 85% 60%; animation: tail-wag 0.9s ease-in-out infinite; }
-    @keyframes tail-wag{ 0%{ transform: rotate(0deg) } 50%{ transform: rotate(18deg) } 100%{ transform: rotate(0deg) } }
-    .eyes { transform-origin:center; animation: blink 4s infinite; }
-    @keyframes blink{ 0%,20%,60%,100%{ transform: scaleY(1) } 10%,70%{ transform: scaleY(0.05) } }
-    .mouth { transform-origin:center; animation: meow 2.2s infinite; }
-    @keyframes meow{ 0%,60%,100%{ transform: scaleY(1) } 30%{ transform: scaleY(0.6) } }
-
-    /* Responsive tweaks */
-    @media (max-width: 768px){ .cat-wrap{ width:240px; height:180px } }
+    body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 20px; }
+    .container { max-width: 1200px; margin: auto; }
+    .box { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .preview { display: flex; gap: 20px; flex-wrap: wrap; }
+    .preview div { flex: 1; border: 1px solid #ccc; padding: 10px; border-radius: 6px; background: #fff; min-width: 300px; }
+    .layer-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .layer-preview div { border: 1px solid #ddd; padding: 5px; border-radius: 4px; }
+    button { padding: 6px 12px; margin-top: 10px; border: none; background: #007bff; color: #fff; border-radius: 4px; cursor: pointer; }
+    button:disabled { background: #aaa; }
+    .color-swatch { width: 20px; height: 20px; display: inline-block; border: 1px solid #ccc; margin-right: 5px; vertical-align: middle; }
+    .error { color: red; margin-top: 10px; }
+    #svgOutput svg { max-width: 100%; height: auto; border: 1px solid #eee; }
   </style>
 </head>
-<body class="antialiased">
-  <header class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
-    <a class="text-xl font-extrabold tracking-tight flex items-center gap-3" href="#">
-      <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-500 flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" /></svg></div>
-      <span class="text-2xl">Annamalai<span class="text-indigo-300">•</span> Studio</span>
-    </a>
-    <nav class="hidden md:flex gap-6 items-center text-sm text-slate-300">
-      <a href="#features" class="hover:text-white">Features</a>
-      <a href="#products" class="hover:text-white">Products</a>
-      <a href="#demo" class="hover:text-white">Demo</a>
-      <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-500 rounded-md text-white shadow-lg">Get Started</a>
-    </nav>
-    <button class="md:hidden p-2 rounded-md bg-white/5">Menu</button>
-  </header>
+<body>
+  <div class="container">
+    <h1>SvgTrace Clone - TRUE Layered Colors</h1>
 
-  <main class="max-w-6xl mx-auto px-6">
-    <!-- HERO -->
-    <section class="grid md:grid-cols-2 gap-10 items-center py-12">
-      <div>
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Modern, stylish animated assets for your website</h1>
-        <p class="mt-4 text-slate-300 max-w-xl">Create delightful micro-interactions and animated hero art that bring personality to sites — lightweight, easy to integrate HTML/CSS packs ready for instant download.</p>
-        <div class="mt-6 flex gap-4">
-          <a href="#products" class="px-5 py-3 rounded-md bg-gradient-to-r from-purple-600 to-indigo-500 shadow hover:opacity-95">Browse Packs</a>
-          <a href="#demo" class="px-5 py-3 rounded-md border border-white/6 glass">Live Demo</a>
-        </div>
-
-        <div class="mt-8 grid grid-cols-3 gap-3 max-w-sm">
-          <div class="glass p-3 rounded-xl text-center">
-            <div class="text-2xl font-bold">120+</div>
-            <div class="text-xs text-slate-400">Happy buyers</div>
-          </div>
-          <div class="glass p-3 rounded-xl text-center">
-            <div class="text-2xl font-bold">30+</div>
-            <div class="text-xs text-slate-400">Animated packs</div>
-          </div>
-          <div class="glass p-3 rounded-xl text-center">
-            <div class="text-2xl font-bold">4.9★</div>
-            <div class="text-xs text-slate-400">Avg. rating</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative">
-        <div class="glass rounded-3xl p-6 shadow-lg">
-          <div class="flex items-center gap-4">
-            <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
-            <div class="text-xs text-slate-300">Live preview</div>
-          </div>
-
-          <div class="mt-6 flex items-center justify-center">
-            <!-- Placeholder hero art: replace src with your image or inline SVG -->
-            <div class="float-slow">
-              <img src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abc" alt="hero" class="rounded-xl shadow-2xl w-96 h-64 object-cover">
-            </div>
-          </div>
-        </div>
-
-        <!-- small testimonial card */ -->
-        <div class="absolute -bottom-6 left-8 glass p-4 rounded-xl w-64 card-hover">
-          <div class="text-sm text-slate-300">"Bought a hero pack — integration took 2 minutes. Beautiful!"</div>
-          <div class="mt-3 text-xs text-slate-400">— Priya, Designer</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section id="features" class="py-12">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="glass rounded-2xl p-6 card-hover">
-          <h3 class="font-semibold">Lightweight & Fast</h3>
-          <p class="text-slate-300 text-sm mt-2">Animations use only CSS transforms and opacity for smooth GPU-accelerated motion.</p>
-        </div>
-        <div class="glass rounded-2xl p-6 card-hover">
-          <h3 class="font-semibold">Easy Integration</h3>
-          <p class="text-slate-300 text-sm mt-2">Drop-in HTML/CSS files. No build step required. Works in all modern browsers.</p>
-        </div>
-        <div class="glass rounded-2xl p-6 card-hover">
-          <h3 class="font-semibold">Customizable</h3>
-          <p class="text-slate-300 text-sm mt-2">Change duration, delays, or colors with a few lines of CSS to match your brand.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRODUCTS -->
-    <section id="products" class="py-12">
-      <h2 class="text-2xl font-bold">Featured Packs</h2>
-      <div class="mt-6 grid md:grid-cols-3 gap-6">
-        <!-- Card 1 -->
-        <article class="glass rounded-2xl p-6 card-hover">
-          <div class="flex items-center justify-between">
-            <div>
-              <h4 class="font-semibold">Hero Motion Pack</h4>
-              <p class="text-slate-400 text-sm">Animated hero banners & parallax assets</p>
-            </div>
-            <div class="text-indigo-300 font-bold">$12</div>
-          </div>
-          <div class="mt-4">
-            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=def" class="rounded-lg w-full h-40 object-cover shadow-sm" alt="pack">
-          </div>
-          <div class="mt-4 flex gap-2">
-            <button class="px-3 py-2 bg-gradient-to-r from-purple-600 to-indigo-500 rounded text-white">Preview</button>
-            <button class="px-3 py-2 border border-white/8 rounded">Buy</button>
-          </div>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="glass rounded-2xl p-6 card-hover">
-          <div class="flex items-center justify-between">
-            <div>
-              <h4 class="font-semibold">Micro-Interaction Kit</h4>
-              <p class="text-slate-400 text-sm">Buttons, loaders, and UI feedback animations</p>
-            </div>
-            <div class="text-indigo-300 font-bold">$8</div>
-          </div>
-          <div class="mt-4">
-            <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=ghi" class="rounded-lg w-full h-40 object-cover shadow-sm" alt="pack">
-          </div>
-          <div class="mt-4 flex gap-2">
-            <button class="px-3 py-2 bg-gradient-to-r from-purple-600 to-indigo-500 rounded text-white">Preview</button>
-            <button class="px-3 py-2 border border-white/8 rounded">Buy</button>
-          </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="glass rounded-2xl p-6 card-hover">
-          <div class="flex items-center justify-between">
-            <div>
-              <h4 class="font-semibold">Animated Mascots</h4>
-              <p class="text-slate-400 text-sm">Character packs with looped animations</p>
-            </div>
-            <div class="text-indigo-300 font-bold">$15</div>
-          </div>
-          <div class="mt-4">
-            <img src="https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=jkl" class="rounded-lg w-full h-40 object-cover shadow-sm" alt="pack">
-          </div>
-          <div class="mt-4 flex gap-2">
-            <button class="px-3 py-2 bg-gradient-to-r from-purple-600 to-indigo-500 rounded text-white">Preview</button>
-            <button class="px-3 py-2 border border-white/8 rounded">Buy</button>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- DEMO: Animated Cat -->
-    <section id="demo" class="py-12">
-      <h2 class="text-2xl font-bold">Animated Demo — Replace with your cat image</h2>
-      <p class="text-slate-400 mt-2">Drop your layered images (or an SVG with separate parts). Below shows how to hook a single image and animate parts via simple classes.</p>
-
-      <div class="mt-6 grid md:grid-cols-2 gap-6 items-center">
-        <div class="glass rounded-2xl p-6">
-          <h3 class="font-semibold">How to use</h3>
-          <ol class="text-slate-300 mt-3 space-y-2 text-sm">
-            <li>Open the ZIP and copy `index.html` + `style.css` into your project.</li>
-            <li>Replace the placeholder images with your `body.png`, `tail.png`, `eyes.png`, `mouth.png` (positioned over one another).</li>
-            <li>Adjust animation speeds in CSS variables at the top of the file.</li>
-            <li>Export a short video preview for Etsy (5–12s) and upload to the listing.</li>
-          </ol>
-        </div>
-
-        <div class="glass rounded-2xl p-6 flex justify-center">
-          <!-- layered demo: single image with pseudo parts (for demo only) -->
-          <div class="cat-wrap">
-            <!-- Replace the image src with your own. For multiple layers, use separate <img> tags positioned absolutely. -->
-            <img src="/assets/your-cat-body.png" alt="cat body" class="cat-img rounded-lg shadow-lg">
-            <!-- Optional overlay parts (tail, eyes, mouth) should have classes tail, eyes, mouth -->
-            <!-- Example if you have separate PNGs: -->
-            <!-- <img src="/assets/your-cat-tail.png" class="absolute tail" style="left:110px; top:40px; width:120px"> -->
-            <!-- <img src="/assets/your-cat-eyes.png" class="absolute eyes" style="left:92px; top:58px; width:80px"> -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="py-12">
-      <div class="glass rounded-2xl p-6">
-        <h3 class="font-semibold">Work with us</h3>
-        <p class="text-slate-300 text-sm mt-2">Want custom animations or an Etsy-ready pack? Drop your details below and we’ll send a quote.</p>
-        <form class="mt-4 grid md:grid-cols-3 gap-3">
-          <input class="p-3 bg-transparent border border-white/6 rounded" placeholder="Your name">
-          <input class="p-3 bg-transparent border border-white/6 rounded" placeholder="Email">
-          <input class="p-3 bg-transparent border border-white/6 rounded md:col-span-3" placeholder="Message">
-          <button class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-500 rounded text-white md:col-span-3">Send</button>
-        </form>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="max-w-6xl mx-auto px-6 py-8 text-slate-400 text-sm">
-    <div class="flex items-center justify-between">
-      <div>© Annamalai Studio • 2025</div>
-      <div>Made with ❤️ • <a href="#" class="text-indigo-300">Terms</a> • <a href="#" class="text-indigo-300">License</a></div>
+    <div class="box">
+      <label>Upload Image:</label>
+      <input type="file" id="fileInput" accept="image/*" />
+      <div style="font-size:12px;color:#666;margin-top:6px;">Tip: Use a local PNG/JPG. Remote images can taint the canvas and block tracing.</div>
     </div>
-  </footer>
+
+    <div class="box">
+      <h3>Options</h3>
+      <label>Colors: <input type="number" id="colors" value="8" min="2" max="32" /></label><br>
+      <label>Stroke Width: <input type="number" id="strokewidth" value="1" min="0" max="10" step="0.1" /></label><br>
+      <label>Scale: <input type="number" id="scale" value="1" step="0.25" min="0.25" max="4" /></label><br>
+      <button id="convertBtn">Convert to TRUE Layered SVG</button>
+      <div id="errorMsg" class="error"></div>
+    </div>
+
+    <div class="preview">
+      <div>
+        <h4>Original</h4>
+        <canvas id="canvas" style="max-width:100%; border:1px solid #ddd;"></canvas>
+      </div>
+      <div>
+        <h4>Layered SVG Output</h4>
+        <div id="svgOutput">No SVG yet</div>
+        <div id="layerPreview" class="layer-preview"></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <button id="downloadBtn" disabled>Download Layered SVG</button>
+      <button id="openBtn" disabled>Open SVG in new tab</button>
+    </div>
+  </div>
 
   <script>
-    // Small helper: demo "Preview" buttons open a modal preview (basic)
-    document.querySelectorAll('button').forEach(btn=>{
-      if(btn.textContent.trim()==='Preview') btn.addEventListener('click', ()=>{ alert('Preview: open a local preview or customize the demo section.'); })
-    })
+    const fileInput = document.getElementById('fileInput');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const convertBtn = document.getElementById('convertBtn');
+    const svgOutput = document.getElementById('svgOutput');
+    const layerPreview = document.getElementById('layerPreview');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const openBtn = document.getElementById('openBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    let currentSVG = '';
+
+    // ---- Helpers ----
+    function toHex(n) { n = Math.max(0, Math.min(255, n|0)); return (n < 16 ? '0' : '') + n.toString(16); }
+    function rgbStringToHex(rgb) {
+      // accepts 'rgb(r,g,b)' OR '#aabbcc'
+      if (!rgb) return '#000000';
+      if (rgb[0] === '#') return rgb;
+      let s = rgb.trim().toLowerCase();
+      if (s.startsWith('rgb(') && s.endsWith(')')) {
+        s = s.slice(4, -1); // inside the brackets
+        const parts = s.split(',');
+        if (parts.length === 3) {
+          const r = parseInt(parts[0]);
+          const g = parseInt(parts[1]);
+          const b = parseInt(parts[2]);
+          if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+            return '#' + toHex(r) + toHex(g) + toHex(b);
+          }
+        }
+      }
+      return '#000000';
+    }
+
+    function groupSvgByFill(svgStr) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svgStr, 'image/svg+xml');
+      const svg = doc.documentElement;
+
+      // Ensure inkscape namespace for real "layers" in editors
+      if (!svg.getAttribute('xmlns:inkscape')) {
+        svg.setAttribute('xmlns:inkscape', 'http://www.inkscape.org/namespaces/inkscape');
+      }
+      const ns = svg.getAttribute('xmlns') || 'http://www.w3.org/2000/svg';
+
+      const selectors = 'path, polygon, polyline, rect, circle, ellipse';
+      const candidates = Array.prototype.slice.call(doc.querySelectorAll(selectors));
+      const groups = new Map();
+      const order = [];
+
+      // Create groups keyed by fill color (preserve encounter order)
+      for (var i = 0; i < candidates.length; i++) {
+        const el = candidates[i];
+        const fill = (el.getAttribute('fill') || 'none').trim().toLowerCase();
+        if (!groups.has(fill)) {
+          const g = doc.createElementNS(ns, 'g');
+          const idx = groups.size + 1;
+          g.setAttribute('id', 'layer_' + idx);
+          g.setAttribute('inkscape:groupmode', 'layer');
+          const labelColor = (fill === 'none') ? 'no-fill' : fill;
+          g.setAttribute('inkscape:label', 'Layer ' + idx + ' ' + labelColor);
+          groups.set(fill, g);
+          order.push(fill);
+        }
+      }
+
+      // Append group shells to SVG (after existing defs/style so they sit above)
+      const defs = svg.querySelector('defs');
+      const insertAfter = defs ? defs.nextSibling : svg.firstChild;
+      for (var j = 0; j < order.length; j++) {
+        const key = order[j];
+        const g = groups.get(key);
+        if (insertAfter) svg.insertBefore(g, insertAfter);
+        else svg.appendChild(g);
+      }
+
+      // Move elements into their color group
+      for (var k = 0; k < candidates.length; k++) {
+        const el = candidates[k];
+        const fill = (el.getAttribute('fill') || 'none').trim().toLowerCase();
+        const g = groups.get(fill);
+        if (g) g.appendChild(el);
+      }
+
+      // Build preview info
+      const fills = order.map(function (f) { return (f === 'none') ? 'none' : rgbStringToHex(f); });
+
+      return { svg: new XMLSerializer().serializeToString(svg), fills: fills };
+    }
+
+    function setError(msg) { errorMsg.textContent = msg || ''; }
+
+    // ---- Image Loading ----
+    fileInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const img = new Image();
+        img.onload = function () {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          currentSVG = '';
+          layerPreview.innerHTML = '';
+          downloadBtn.disabled = true;
+          openBtn.disabled = true;
+          setError('');
+        };
+        img.onerror = function () { setError('Error loading image. Please use a valid PNG or JPEG.'); };
+        img.src = ev.target.result;
+      };
+      reader.onerror = function () { setError('Error reading file. Please try another file.'); };
+      reader.readAsDataURL(file);
+    });
+
+    // ---- Convert ----
+    convertBtn.addEventListener('click', function () {
+      if (!canvas.width || !canvas.height) {
+        setError('No image loaded. Please upload an image first.');
+        return;
+      }
+
+      const colors = parseInt(document.getElementById('colors').value, 10) || 8;
+      const strokewidth = parseFloat(document.getElementById('strokewidth').value) || 1;
+      const scale = parseFloat(document.getElementById('scale').value) || 1;
+
+      const options = {
+        numberofcolors: colors,
+        scale: scale,
+        strokewidth: strokewidth,
+        ltres: 1,
+        qtres: 1,
+        pathomit: 8,
+        colorsampling: 1
+      };
+
+      try {
+        // Get ImageData (with fallback)
+        let imgData;
+        try {
+          imgData = ImageTracer.getImgdata(canvas);
+        } catch (e) {
+          imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        }
+
+        // Trace -> default SVG
+        const traced = ImageTracer.imagedataToTracedata(imgData, options);
+        const baseSvg = ImageTracer.getsvgstring(traced, options);
+
+        // Group by FILL into true LAYERS (with inkscape metadata)
+        const grouped = groupSvgByFill(baseSvg);
+        currentSVG = grouped.svg;
+        svgOutput.innerHTML = currentSVG;
+
+        // Show layer previews using actual fills
+        layerPreview.innerHTML = '';
+        for (var i = 0; i < grouped.fills.length; i++) {
+          const fill = grouped.fills[i];
+          const div = document.createElement('div');
+          const swatchStyle = (fill === 'none') ? 'background:repeating-linear-gradient(45deg,#ccc,#ccc 6px,#fff 6px,#fff 12px);' : 'background:' + fill + ';';
+          div.innerHTML = '<span class="color-swatch" style="' + swatchStyle + '"></span> Layer ' + (i + 1) + ' <code>' + fill + '</code>';
+          layerPreview.appendChild(div);
+        }
+
+        downloadBtn.disabled = false;
+        openBtn.disabled = false;
+        setError('');
+      } catch (err) {
+        console.error(err);
+        setError('Conversion error: ' + err.message + ' (Check console for details)');
+      }
+    });
+
+    // ---- Download / Open ----
+    downloadBtn.addEventListener('click', function () {
+      if (!currentSVG) { setError('No SVG to download.'); return; }
+      const blob = new Blob([currentSVG], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'layered_trace.svg';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    });
+
+    openBtn.addEventListener('click', function () {
+      if (!currentSVG) { setError('No SVG to open.'); return; }
+      const w = window.open();
+      w.document.write(currentSVG);
+      w.document.close();
+    });
   </script>
 </body>
 </html>
