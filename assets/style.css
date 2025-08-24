@@ -171,11 +171,11 @@ body.dark .tip {
   transition: background 0.3s ease;
 }
 
-#themeToggle svg {
+#themeIcon {
   stroke: var(--text-light);
 }
 
-body.dark #themeToggle svg {
+body.dark #themeIcon {
   stroke: var(--text-dark);
 }
 
