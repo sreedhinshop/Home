@@ -26,27 +26,22 @@
       <span class="text-2xl">Layered SVG Converter<span class="text-indigo-500">•</span> Studio</span>
     </a>
     <div class="flex items-center gap-4">
-      <nav class="hidden md:flex gap-6 items-center text-sm text-gray-600 dark:text-slate-300">
-        <a href="#features" class="hover:text-gray-800 dark:hover:text-white">Features</a>
-        <a href="#how-it-works" class="hover:text-gray-800 dark:hover:text-white">How It Works</a>
-        <a href="#contact" class="hover:text-gray-800 dark:hover:text-white">Contact</a>
+      <nav class="hidden md:flex gap-6 items-center text-sm text-gray-600">
+        <a href="#features" class="hover:text-gray-800">Features</a>
+        <a href="#how-it-works" class="hover:text-gray-800">How It Works</a>
+        <a href="#contact" class="hover:text-gray-800">Contact</a>
         <a href="#convert" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-500 rounded-md text-white shadow-lg">Get Started</a>
       </nav>
-      <button id="themeToggle" class="p-2 rounded-md glass hover:bg-gray-100 dark:hover:bg-white/10" title="Toggle Theme">
-        <svg id="themeIcon" class="w-5 h-5 text-gray-600 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      </button>
-      <button class="md:hidden p-2 rounded-md glass">Menu</button>
+      <button class="md:hidden p-2 rounded-md simple-bg">Menu</button>
     </div>
   </header>
 
   <main class="max-w-6xl mx-auto px-6">
     <!-- HERO -->
     <section class="grid md:grid-cols-2 gap-10 items-center py-12" id="convert">
-      <div class="converter-container glass rounded-2xl p-6 shadow-lg card-hover order-1 md:order-1">
-        <h3 class="font-semibold mb-4 text-gray-900 dark:text-white">Upload Image</h3>
-        <input type="file" id="fileInput" accept="image/*" class="block w-full text-sm text-gray-600 dark:text-slate-300
+      <div class="converter-container simple-bg rounded-2xl p-6 shadow-lg card-hover order-1 md:order-1">
+        <h3 class="font-semibold mb-4 text-gray-900">Upload Image</h3>
+        <input type="file" id="fileInput" accept="image/*" class="block w-full text-sm text-gray-600
           file:mr-4 file:py-2 file:px-4
           file:rounded-md file:border-0
           file:text-sm file:font-semibold
@@ -66,11 +61,11 @@
         <div id="result" class="mt-6 hidden">
           <div class="grid md:grid-cols-2 gap-4">
             <div>
-              <h3 class="font-semibold mb-2 text-gray-900 dark:text-white">Original</h3>
+              <h3 class="font-semibold mb-2 text-gray-900">Original</h3>
               <canvas id="canvas"></canvas>
             </div>
             <div>
-              <h3 class="font-semibold mb-2 text-gray-900 dark:text-white">Layered SVG Output</h3>
+              <h3 class="font-semibold mb-2 text-gray-900">Layered SVG Output</h3>
               <div id="svgOutput">No SVG yet</div>
             </div>
           </div>
@@ -82,11 +77,11 @@
         </div>
       </div>
       <div class="order-2 md:order-2">
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900 dark:text-white">Convert Images to Layered SVG</h1>
-        <p class="mt-4 text-gray-600 dark:text-slate-300 max-w-xl">Transform images into scalable, layered vector graphics with customizable colors and stroke width. Perfect for designers and developers.</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">Convert Images to Layered SVG</h1>
+        <p class="mt-4 text-gray-600 max-w-xl">Transform images into scalable, layered vector graphics with customizable colors and stroke width. Perfect for designers and developers.</p>
         <div class="mt-6 flex gap-4">
           <a href="#convert" class="btn-primary">Start Converting</a>
-          <a href="#how-it-works" class="px-5 py-3 rounded-md border border-gray-200 dark:border-white/6 glass">Learn More</a>
+          <a href="#how-it-works" class="px-5 py-3 rounded-md border border-gray-200 simple-bg">Learn More</a>
         </div>
         <!-- AdSense: Header Banner -->
         <div class="mt-8 text-center">
@@ -105,30 +100,30 @@
 
     <!-- FEATURES -->
     <section id="features" class="py-12">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Why Use Our Converter?</h2>
+      <h2 class="text-2xl font-bold text-gray-900">Why Use Our Converter?</h2>
       <div class="mt-6 grid md:grid-cols-3 gap-6">
-        <div class="glass rounded-2xl p-6 card-hover">
-          <h3 class="font-semibold text-gray-900 dark:text-white">Layered Output</h3>
-          <p class="text-gray-600 dark:text-slate-300 text-sm mt-2">Generate SVGs with true layers grouped by fill color, editable in design tools.</p>
+        <div class="simple-bg rounded-2xl p-6 card-hover">
+          <h3 class="font-semibold text-gray-900">Layered Output</h3>
+          <p class="text-gray-600 text-sm mt-2">Generate SVGs with true layers grouped by fill color, editable in design tools.</p>
         </div>
-        <div class="glass rounded-2xl p-6 card-hover">
-          <h3 class="font-semibold text-gray-900 dark:text-white">Customizable</h3>
-          <p class="text-gray-600 dark:text-slate-300 text-sm mt-2">Adjust colors, stroke width, and scale to fit your project needs.</p>
+        <div class="simple-bg rounded-2xl p-6 card-hover">
+          <h3 class="font-semibold text-gray-900">Customizable</h3>
+          <p class="text-gray-600 text-sm mt-2">Adjust colors, stroke width, and scale to fit your project needs.</p>
         </div>
-        <div class="glass rounded-2xl p-6 card-hover">
-          <h3 class="font-semibold text-gray-900 dark:text-white">Browser-Based</h3>
-          <p class="text-gray-600 dark:text-slate-300 text-sm mt-2">No software downloads needed, works seamlessly in modern browsers.</p>
+        <div class="simple-bg rounded-2xl p-6 card-hover">
+          <h3 class="font-semibold text-gray-900">Browser-Based</h3>
+          <p class="text-gray-600 text-sm mt-2">No software downloads needed, works seamlessly in modern browsers.</p>
         </div>
       </div>
     </section>
 
     <!-- HOW IT WORKS -->
     <section id="how-it-works" class="py-12">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">How It Works</h2>
+      <h2 class="text-2xl font-bold text-gray-900">How It Works</h2>
       <div class="mt-6 grid md:grid-cols-2 gap-6">
-        <div class="glass rounded-2xl p-6">
-          <h3 class="font-semibold text-gray-900 dark:text-white">Step-by-Step Guide</h3>
-          <ol class="text-gray-600 dark:text-slate-300 mt-3 space-y-2 text-sm">
+        <div class="simple-bg rounded-2xl p-6">
+          <h3 class="font-semibold text-gray-900">Step-by-Step Guide</h3>
+          <ol class="text-gray-600 mt-3 space-y-2 text-sm">
             <li>Upload a PNG or JPG image using the file picker.</li>
             <li>Adjust colors, stroke width, and scale as needed.</li>
             <li>Click "Convert to Layered SVG" to process the image.</li>
@@ -136,8 +131,8 @@
           </ol>
         </div>
         <!-- AdSense: Sidebar -->
-        <div class="glass rounded-2xl p-6">
-          <h3 class="font-semibold mb-4 text-gray-900 dark:text-white">Sponsored</h3>
+        <div class="simple-bg rounded-2xl p-6">
+          <h3 class="font-semibold mb-4 text-gray-900">Sponsored</h3>
           <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
@@ -153,20 +148,20 @@
 
     <!-- CONTACT -->
     <section id="contact" class="py-12">
-      <div class="glass rounded-2xl p-6">
-        <h3 class="font-semibold text-gray-900 dark:text-white">Get in Touch</h3>
-        <p class="text-gray-600 dark:text-slate-300 text-sm mt-2">Have questions or need support? Send us a message!</p>
+      <div class="simple-bg rounded-2xl p-6">
+        <h3 class="font-semibold text-gray-900">Get in Touch</h3>
+        <p class="text-gray-600 text-sm mt-2">Have questions or need support? Send us a message!</p>
         <form class="mt-4 grid md:grid-cols-3 gap-3">
-          <input class="p-3 bg-transparent border border-gray-200 dark:border-white/6 rounded" placeholder="Your name" />
-          <input class="p-3 bg-transparent border border-gray-200 dark:border-white/6 rounded" placeholder="Email" />
-          <input class="p-3 bg-transparent border border-gray-200 dark:border-white/6 rounded md:col-span-3" placeholder="Message" />
+          <input class="p-3 bg-transparent border border-gray-200 rounded" placeholder="Your name" />
+          <input class="p-3 bg-transparent border border-gray-200 rounded" placeholder="Email" />
+          <input class="p-3 bg-transparent border border-gray-200 rounded md:col-span-3" placeholder="Message" />
           <button class="btn-primary md:col-span-3">Send</button>
         </form>
       </div>
     </section>
   </main>
 
-  <footer class="max-w-6xl mx-auto px-6 py-8 text-gray-600 dark:text-slate-300 text-sm">
+  <footer class="max-w-6xl mx-auto px-6 py-8 text-gray-600 text-sm">
     <div class="flex items-center justify-between">
       <div>© Layered SVG Converter Studio • 2025</div>
       <div>
@@ -180,4 +175,3 @@
 <script src="assets/script/script.js"></script>
 </body>
 </html>
-
