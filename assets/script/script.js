@@ -10,44 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const openBtn = document.getElementById('openBtn');
   const errorMsg = document.getElementById('errorMsg');
   const resultDiv = document.getElementById('result');
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
 
   let currentSVG = '';
 
   // ---- Debugging ----
   if (!canvas || !ctx) console.error('Canvas or context not found');
-  if (!themeToggle || !themeIcon) console.error('Theme toggle elements not found');
   if (!fileInput || !convertBtn || !resetBtn || !svgOutput || !layerPreview || !downloadBtn || !openBtn || !errorMsg || !resultDiv) {
     console.error('One or more form elements missing');
-  }
-
-  // ---- Theme Toggle ----
-  function setTheme(theme) {
-    if (!document.body || !themeIcon) {
-      console.error('Cannot set theme: document.body or themeIcon missing');
-      return;
-    }
-    document.body.classList.toggle('dark', theme === 'dark');
-    const path = theme === 'dark'
-      ? 'M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z'
-      : 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z';
-    themeIcon.querySelector('path').setAttribute('d', path);
-    localStorage.setItem('theme', theme);
-    console.log(`Theme set to: ${theme}`);
-  }
-
-  // Initialize theme
-  const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  setTheme(savedTheme);
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
-  } else {
-    console.error('Theme toggle button not found');
   }
 
   // ---- Helpers ----
@@ -254,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         downloadBtn.disabled = false;
-        openBtn.disabled = true; // Disabled as per your request to focus on core functionality
+        openBtn.disabled = false;
         setError('');
         console.log('Conversion successful');
       } catch (err) {
@@ -287,6 +256,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } else {
     console.error('Download button not found');
+  }
+
+  // ---- Open in New Tab ----
+  if (openBtn) {
+    openBtn.addEventListener('click', function () {
+      if (!currentSVG) {
+        setError('No SVG to open.');
+        console.error('No SVG to open');
+        return;
+      }
+      const w = window.open();
+      w.document.write(currentSVG);
+      w.document.close();
+      console.log('SVG opened in new tab');
+    });
+  } else {
+    console.error('Open button not found');
   }
 
   // ---- Reset ----
