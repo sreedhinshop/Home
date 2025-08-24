@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Debugging ----
   if (!canvas || !ctx) console.error('Canvas or context not found');
   if (!themeToggle || !themeIcon) console.error('Theme toggle elements not found');
+  if (!fileInput || !convertBtn || !resetBtn || !svgOutput || !layerPreview || !downloadBtn || !openBtn || !errorMsg || !resultDiv) {
+    console.error('One or more form elements missing');
+  }
 
   // ---- Theme Toggle ----
   function setTheme(theme) {
@@ -43,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
       setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
+  } else {
+    console.error('Theme toggle button not found');
   }
 
   // ---- Helpers ----
@@ -86,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const groups = new Map();
       const order = [];
 
-      for (var i = 0; i < candidates.length; i++) {
+      for (let i = 0; i < candidates.length; i++) {
         const el = candidates[i];
         const fill = (el.getAttribute('fill') || 'none').trim().toLowerCase();
         if (!groups.has(fill)) {
@@ -103,21 +108,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const defs = svg.querySelector('defs');
       const insertAfter = defs ? defs.nextSibling : svg.firstChild;
-      for (var j = 0; j < order.length; j++) {
+      for (let j = 0; j < order.length; j++) {
         const key = order[j];
         const g = groups.get(key);
         if (insertAfter) svg.insertBefore(g, insertAfter);
         else svg.appendChild(g);
       }
 
-      for (var k = 0; k < candidates.length; k++) {
+      for (let k = 0; k < candidates.length; k++) {
         const el = candidates[k];
         const fill = (el.getAttribute('fill') || 'none').trim().toLowerCase();
         const g = groups.get(fill);
         if (g) g.appendChild(el);
       }
 
-      const fills = order.map(function (f) { return (f === 'none') ? 'none' : rgbStringToHex(f); });
+      const fills = order.map(f => (f === 'none') ? 'none' : rgbStringToHex(f));
       return { svg: new XMLSerializer().serializeToString(svg), fills: fills };
     } catch (err) {
       console.error('Error in groupSvgByFill:', err);
@@ -153,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('strokewidth').value = '1';
     document.getElementById('scale').value = '1';
     setError('');
+    console.log('Form reset');
   }
 
   // ---- Image Loading ----
@@ -196,6 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       reader.readAsDataURL(file);
     });
+  } else {
+    console.error('File input not found');
   }
 
   // ---- Convert ----
@@ -204,6 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!canvas || !canvas.width || !canvas.height) {
         setError('No image loaded. Please upload an image first.');
         console.error('No image loaded for conversion');
+        return;
+      }
+
+      if (!window.ImageTracer) {
+        setError('ImageTracer.js failed to load. Please refresh the page or check your internet connection.');
+        console.error('ImageTracer.js not loaded');
         return;
       }
 
@@ -222,16 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        if (!window.ImageTracer) {
-          throw new Error('ImageTracer.js not loaded');
-        }
-        let imgData;
-        try {
-          imgData = ImageTracer.getImgdata(canvas);
-        } catch (e) {
-          imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        }
-
+        let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const traced = ImageTracer.imagedataToTracedata(imgData, options);
         const baseSvg = ImageTracer.getsvgstring(traced, options);
         const grouped = groupSvgByFill(baseSvg);
@@ -240,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDiv.classList.remove('hidden');
 
         layerPreview.innerHTML = '';
-        for (var i = 0; i < grouped.fills.length; i++) {
+        for (let i = 0; i < grouped.fills.length; i++) {
           const fill = grouped.fills[i];
           const div = document.createElement('div');
           const swatchStyle = (fill === 'none') ? 'background:repeating-linear-gradient(45deg,#ccc,#ccc 6px,#fff 6px,#fff 12px);' : 'background:' + fill + ';';
@@ -249,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         downloadBtn.disabled = false;
-        openBtn.disabled = false;
+        openBtn.disabled = true; // Disabled as per your request to focus on core functionality
         setError('');
         console.log('Conversion successful');
       } catch (err) {
@@ -257,9 +262,11 @@ document.addEventListener('DOMContentLoaded', () => {
         setError('Conversion error: ' + err.message + ' (Check console for details)');
       }
     });
+  } else {
+    console.error('Convert button not found');
   }
 
-  // ---- Download / Open ----
+  // ---- Download ----
   if (downloadBtn) {
     downloadBtn.addEventListener('click', function () {
       if (!currentSVG) {
@@ -275,27 +282,17 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(a);
       a.click();
       a.remove();
-      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
       console.log('SVG downloaded');
     });
-  }
-
-  if (openBtn) {
-    openBtn.addEventListener('click', function () {
-      if (!currentSVG) {
-        setError('No SVG to open.');
-        console.error('No SVG to open');
-        return;
-      }
-      const w = window.open();
-      w.document.write(currentSVG);
-      w.document.close();
-      console.log('SVG opened in new tab');
-    });
+  } else {
+    console.error('Download button not found');
   }
 
   // ---- Reset ----
   if (resetBtn) {
     resetBtn.addEventListener('click', resetForm);
+  } else {
+    console.error('Reset button not found');
   }
 });
