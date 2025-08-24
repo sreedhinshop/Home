@@ -10,8 +10,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google AdSense Script -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+  <!-- ImageTracer.js -->
+  <script src="https://cdn.jsdelivr.net/npm/imagetracerjs@1.2.6/imagetracer_v1.2.6.js"></script>
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body class="antialiased">
   <header class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
@@ -30,12 +32,9 @@
         <a href="#contact" class="hover:text-gray-800 dark:hover:text-white">Contact</a>
         <a href="#convert" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-500 rounded-md text-white shadow-lg">Get Started</a>
       </nav>
-      <button id="themeToggle" class="p-2 rounded-md glass hover:bg-gray-100 dark:hover:bg-white/10">
-        <svg id="lightIcon" class="w-5 h-5 text-gray-600 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button id="themeToggle" class="p-2 rounded-md glass hover:bg-gray-100 dark:hover:bg-white/10" title="Toggle Theme">
+        <svg id="themeIcon" class="w-5 h-5 text-gray-600 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-        <svg id="darkIcon" class="w-5 h-5 text-gray-600 dark:text-slate-300 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
         </svg>
       </button>
       <button class="md:hidden p-2 rounded-md glass">Menu</button>
@@ -178,8 +177,6 @@
   </footer>
 
   <!-- Custom JavaScript -->
-  <script src="assets/script/script.js"></script>
+<script src="assets/script/script.js"></script>
 </body>
 </html>
-
-
